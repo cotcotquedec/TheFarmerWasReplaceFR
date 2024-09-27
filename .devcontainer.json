@@ -1,0 +1,16 @@
+{
+    "name": "Dolores DevContainer",
+    "build": {
+      "dockerfile": "Dockerfile"
+    },
+    "settings": {
+      "python.defaultInterpreterPath": "/usr/local/bin/python"
+    },
+    "extensions": [
+      "ms-python.python",
+      "ms-python.vscode-pylance"
+    ],
+    "remoteUser": "vscode",
+    "runArgs": ["--init"],
+    "postCreateCommand": "pip install -r requirements.txt"
+  }
