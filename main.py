@@ -32,7 +32,7 @@ def translate_content(content, file_extension):
 
     # Send the message to the OpenAI API
     response = client_openai.beta.chat.completions.parse(
-        model="gpt-4o-mini",
+        model="gpt-4o-2024-08-06",
         messages=[{"role": "user", "content": [{"type": "text","text": prompt.format(content=content)}]}],
         response_format=TranslatedContent,
         temperature=0.3

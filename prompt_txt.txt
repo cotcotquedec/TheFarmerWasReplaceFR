@@ -11,4 +11,4 @@ Output:
 @button_tooltip_save = Sauvegarder la partie.
 
 **Here is the content to translate:**
-{Content}
+{content}
