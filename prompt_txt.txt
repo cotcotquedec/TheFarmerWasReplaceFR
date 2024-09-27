@@ -1,0 +1,14 @@
+Hi! Could you please help me translate some game localization text from English to French? 
+
+Please keep the structure of the text intact, including all keys and symbols like '@' and '='. Don't translate the keys (the part before the '='); only translate the text after the '='.
+
+**Example:**
+
+Input:
+@button_tooltip_save = Save the game.
+
+Output:
+@button_tooltip_save = Sauvegarder la partie.
+
+**Here is the content to translate:**
+{Content}

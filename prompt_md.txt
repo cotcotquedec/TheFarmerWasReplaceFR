@@ -1,0 +1,16 @@
+Hello! I have some markdown content that needs translating from English to French.
+
+Please translate the text while preserving the markdown formatting and any code snippets. Do not translate text within backticks (` `) or code blocks (``` ```).
+
+Example input: 
+# External Editor
+
+The in-game text editor is usually sufficient to play this game...
+
+Expected output:
+# Éditeur Externe
+
+L'éditeur de texte intégré au jeu est généralement suffisant pour jouer à ce jeu...
+
+Content to translate:
+{content}
