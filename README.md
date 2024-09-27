@@ -1,4 +1,4 @@
-# README: The Farmer Was Replaced: French Translation Project
+# The Farmer Was Replaced: French Translation Project
 
 ![Logo](./logo.png)
 
@@ -50,7 +50,3 @@ Start the game, and it should now be displayed in French!
 
 ## Contribution
 Feel free to contribute or report issues.
-
----
-
-Est-ce que cela correspond mieux ?
