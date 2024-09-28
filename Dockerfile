@@ -6,10 +6,10 @@ RUN apt-get update && apt-get install -y \
     git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV PYTHONPATH="/workspace/TheFarmerWasReplaceFR"
+ENV PYTHONPATH="/workspace/TheFarmerWasReplaced-FR-Translator"
 
 # Créer et définir le répertoire de travail
-WORKDIR /workspace/TheFarmerWasReplaceFR
+WORKDIR /workspace/TheFarmerWasReplaced-FR-Translator
 
 # INSTALL PLAYWRIGHT
 RUN pip install --upgrade pip
@@ -17,5 +17,4 @@ RUN pip install --upgrade pip
 # Copier les fichiers de l'application dans le conteneur
 COPY . .
 
-RUN git config --global --add safe.directory /workspaces/TheFarmerWasReplaceFR
 RUN pip install -r requirements.txt
