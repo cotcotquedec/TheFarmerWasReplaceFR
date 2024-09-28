@@ -1,0 +1,5 @@
+openai:
+  apikey: sk-ABC********************************
+
+language_folder: '/data'
+  
