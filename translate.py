@@ -1,8 +1,8 @@
 import os
+import shutil
 from helpers import logger, client_openai, config  # Import config for language directories
 from pydantic import BaseModel
 from tqdm import tqdm
-
 
 try:
     # Ensure the language configuration is available
@@ -12,6 +12,20 @@ try:
     # Define base language directories
     en_directory = os.path.join(config["language_folder"], "EN")
     fr_directory = os.path.join(config["language_folder"], "FR")
+    original_en_directory = os.path.join(config["language_folder"], "original_EN")
+   
+    # Check if the FR folder already exists
+    if os.path.exists(fr_directory):
+        logger.warning(f"The folder {fr_directory} already exists. Translation will not be executed.")
+        exit(0)
+
+    # BACKUP ORIGINAL
+    if not os.path.exists(original_en_directory):
+        if not os.path.exists(en_directory):
+            raise FileNotFoundError(f"The directory {en_directory} does not exist and no backup is available. Please ensure the game is correctly installed.")
+        shutil.copytree(en_directory, original_en_directory)
+        logger.info(f"Directory {en_directory} copied to {original_en_directory} as a backup.")
+
 
     # Load prompt files for translation
     prompt_md_file = "prompt_md.txt"
@@ -46,7 +60,7 @@ try:
 
         # Send the message to the OpenAI API
         response = client_openai.beta.chat.completions.parse(
-            model="gpt-4o-2024-08-06",
+            model="gpt-4o-mini",
             messages=[{"role": "user", "content": [{"type": "text", "text": prompt.format(content=content)}]}],
             response_format=TranslatedContent,
             temperature=0.3
@@ -66,18 +80,17 @@ try:
 
         return translated_content
 
-
-    # Check if the English directory exists
-    if not os.path.exists(en_directory):
-        raise FileNotFoundError(f"The directory {en_directory} does not exist. Please ensure the path is correct.")
+    # Check if the source directory (original_EN) exists
+    if not os.path.exists(original_en_directory):
+        raise FileNotFoundError(f"The directory {original_en_directory} does not exist. Please ensure the path is correct.")
 
     # Count the total number of files for progress tracking
-    total_files = sum(len(files) for _, _, files in os.walk(en_directory))
+    total_files = sum(len(files) for _, _, files in os.walk(original_en_directory))
     logger.info(f"Number of files to translate: {total_files}")
 
     # Create the tqdm progress bar
     with tqdm(total=total_files, desc="Translating files", unit="file") as pbar:
-        for root_dir, sub_dirs, files in os.walk(en_directory):
+        for root_dir, sub_dirs, files in os.walk(original_en_directory):
             for file in files:
                 full_path = os.path.join(root_dir, file)
                 try:
@@ -89,8 +102,8 @@ try:
                     file_extension = os.path.splitext(file)[1]
                     translated_content = translate_content(content, file_extension.strip())
 
-                    # Create the new path by replacing 'EN' with 'FR'
-                    new_path = root_dir.replace('EN', 'FR')
+                    # Create the new path by replacing 'original_EN' with 'FR'
+                    new_path = root_dir.replace('original_EN', 'FR')
                     os.makedirs(new_path, exist_ok=True)  # Create the directories if they don't exist
 
                     # Full path for the translated file

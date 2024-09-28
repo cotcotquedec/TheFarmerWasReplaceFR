@@ -6,10 +6,10 @@ RUN apt-get update && apt-get install -y \
     git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV PYTHONPATH="/workspace/TheFarmerWasReplaced-FR-Translator"
+ENV PYTHONPATH="/workspace"
 
 # Créer et définir le répertoire de travail
-WORKDIR /workspace/TheFarmerWasReplaced-FR-Translator
+WORKDIR /workspace
 
 # INSTALL PLAYWRIGHT
 RUN pip install --upgrade pip
